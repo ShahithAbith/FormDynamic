@@ -135,7 +135,7 @@ const Input = ({ windowSize, commoninputSize, maxRow }) => {
         if ((index - lastDescIndex) % maxRow !== 0) {
             let rem = (index - lastDescIndex) % maxRow;
             lastDescIndex = index;
-            lastRowInput = ((data.length - lastDescIndex) % maxRow)-1;
+            lastRowInput = ((data.length - lastDescIndex) % maxRow) - 1;
             lastInputSize = windowSize / lastRowInput;
             for (let j = index - 1; j >= index - rem; j--) {
                 // console.log("j :" + j + " rem :" + rem + " index :" + index)
@@ -144,6 +144,7 @@ const Input = ({ windowSize, commoninputSize, maxRow }) => {
             }
         }
     }
+
     if(!desc) {
         lastRowInput = ((data.length - lastDescIndex) % maxRow);
         lastInputSize = windowSize / lastRowInput;

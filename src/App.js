@@ -5,7 +5,7 @@ import Input from './Input';
 function App() {
   const [windowSize,setWindowSize] = useState(window.innerWidth);
   const [maxInput,setMaxInput] = useState(0);
-  const [maxRow,setMaxRow] = useState(4);
+  const [maxRow,setMaxRow] = useState(3);
 
  useEffect(() => {
   setMaxInput(Math.floor(windowSize/maxRow))

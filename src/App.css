@@ -14,7 +14,7 @@
 .form__single {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 33.33%;
 }
 
 .form__single.input1 {
