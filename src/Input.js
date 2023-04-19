@@ -1,192 +1,86 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-const Input = ({ windowSize, commoninputSize, maxRow }) => {
-    const data = [
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "desc1",
-            value: "desc",
-            InputType: "textarea",
-        },
-        {
-            key: "desc1",
-            value: "desc",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "desc1",
-            value: "desc",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "desc1",
-            value: "desc",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "desc3",
-            value: "desc",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "desc3",
-            value: "desc",
-            InputType: "textarea",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "input",
-            value: "input",
-            InputType: "text",
-        },
-        {
-            key: "desc",
-            value: "desc",
-            InputType: "text",
-        },
-    ]
+const Input = ({ windowSize, commoninputSize, maxRow,data }) => {
 
-    let desc = false;
-    let lastDescIndex = 0;
-    let inputLength = 0;
-    let lastRowInput = 0;
-    let lastInputSize = 0;
-    data.forEach((val, i) => {
-        if (val.value === "input") inputLength++;
-        else {
-            desc = true
-        }
-    });
+    const [newJson,setNewJson] = useState(data);
+    let endCount = 0;
 
-    const renderCorrectInput = (index) => {
-        if (lastDescIndex !== 0) {
-            lastDescIndex++
-        }
-        if ((index - lastDescIndex) % maxRow !== 0) {
-            let rem = (index - lastDescIndex) % maxRow;
-            lastDescIndex = index;
-            lastRowInput = ((data.length - lastDescIndex) % maxRow) - 1;
-            lastInputSize = windowSize / lastRowInput;
-            for (let j = index - 1; j >= index - rem; j--) {
-                // console.log("j :" + j + " rem :" + rem + " index :" + index)
-                let element = document.getElementById(j);
-                if (element) element.classList.add("input" + rem)
+   let typeObj = {
+    desc:"desc",
+    radio:"radio"
+   }
+
+   let arr = ["desc","radio"]
+   
+     useEffect(() => {
+        updateJson(newJson);
+     },[])
+
+     const updateJson = (newJson,arr) => {
+        for(let i=0;i<newJson.length;i++) {
+            // switch(newJson[i].Type) {
+            //     case typeObj[newJson[i].Type] :
+            //         addingClassName(i,endCount,newJson,"desc")
+            //         endCount = 0;
+            //     break;
+            //         default:
+            //             endCount++
+            //         if(newJson.length - 1 === i) {
+            //             addingClassName(i,endCount,newJson,"input")
+            //         }
+            //         break;
+            // }
+            if(typeObj[newJson[i].Type]) {
+                addingClassName(i,endCount,newJson,"desc")
+                endCount = 0;
+            }
+            else {
+                endCount++
+                if(newJson.length - 1 === i) {
+                  addingClassName(i,endCount,newJson,"input")
+              }
             }
         }
-    }
+     }
 
-    if(!desc) {
-        lastRowInput = ((data.length - lastDescIndex) % maxRow);
-        lastInputSize = windowSize / lastRowInput;
-    }
-    
-    const setStyles = (i) => {
-        let styles = {}
-        let index = data.length - lastRowInput;
-        // console.log("i " + i + " index :" + index)
-        if (index < i+1 ) {
-            styles = { width: lastInputSize }
+     const addingClassName = (index,count,data,type) => {
+        let val = 0;
+        if(type === "desc") {
+            val = 1;
         }
-        return styles;
-    }
-
+        if(count !== 0) {
+            let rem = count % maxRow;
+            for(let j=0;j<rem;j++) {
+                let className = data[index - j - val].className
+                data[index - j - val].className = className ? className + " " + "input" + rem : "input" + rem
+            }
+        }
+        setNewJson(data);
+     }
     return (
         <div className='form' style={{ width: windowSize }}>
-            {
-                data.map((val, i) => (
-                    <>
-                        {val.value === "input" &&
-                            <div key={i}
-                                id={i}
-                                className={`form__single `}
-                                style={setStyles(i)}
-                            >
-                                <label>{val.key}</label>
-                                <input
-                                    style={setStyles(i)}
-                                    type={val.InputType} />
-                            </div>
-                        }
-                        {val.value !== "input" && renderCorrectInput(i)}
-                        {val.value !== "input" &&
-                            <div id={i} className='textarea'>
-                                <label>{val.key}</label>
-                                <textarea></textarea>
-                            </div>
-                        }
-                    </>
-                ))
-            }
+           {
+            newJson.map((data) => (
+                <>
+                {
+                    data.Type === "input" && (
+                        <div className={ `${data?.className}`}>
+                            <label>{data.key}</label>
+                            <input  />
+                        </div>
+                    )
+                }
+                {
+                    data.Type !== "input" && (
+                        <div className={ `textarea`}>
+                            <label>{data.key}</label>
+                            <textarea  />
+                        </div>
+                    )
+                }
+                </>
+            ))
+           }
         </div>
     )
 }

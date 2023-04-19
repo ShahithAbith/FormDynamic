@@ -14,7 +14,8 @@
 .form__single {
   display: flex;
   flex-direction: column;
-  width: 33.33%;
+  width: 25%;
+  /* margin: 0% 1%; */
 }
 
 .form__single.input1 {
@@ -29,6 +30,13 @@
   width: 33.33%;
 }
 
+.form__single.input4 {
+  width: 25%;
+}
+
+.form__single.input5 {
+  width: 18%;
+}
 .textarea {
   margin-top: 10px;
   width: 100%;
@@ -36,3 +44,4 @@
 .textarea textarea {
   width:100%;
 }
+
