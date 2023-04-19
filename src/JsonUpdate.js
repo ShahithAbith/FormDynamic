@@ -1,59 +1,21 @@
 import React, { useEffect } from 'react'
 
-const JsonUpdate = () => {
-    const data = [
-        {
-            key:"desc",
-            value:"desc"
-        },
-        {
-            key:"desc",
-            value:"desc"
-        },
-        {
-            key:"input",
-            value:"input"
-        },
-        {
-            key:"input",
-            value:"input",
-        },
-        {
-            key:"input",
-            value:"input"
-        },
-        
-    ]
+const JsonUpdate = ({obj}) => {
 
-     useEffect(() => {
-        updateJson()
-     },[])
+    if(obj?.Fields?.length) {
+        return (
+<div>
 
-     const updateJson = () => {
-        let startCount = 0;
-        let endCount = 0;
-        for(let i=0;i<data.length;i++) {
-            startCount++;
-            switch (data[i].value) {
-                case "desc":
-                endCount++
-                startCount = 0;
-                endCount = 0;
-                break;
-                case "input":
-                    endCount++;
-                    break;
-                default:
-                    break;
-            }
-        }
-     }
+       
 
-  return (
-    <div>
-      
-    </div>
-  )
+</div>
+        )
+       
+    }else {
+        <div>No Data to show</div>
+    }
+  
+ 
 }
 
 export default JsonUpdate
