@@ -187,6 +187,8 @@ function App() {
   return (
     <div className="App">
       <Form data = {data} maxRow = {maxRow} />
+      {/* <Form data = {data} maxRow = {maxRow} /> */}
+
       {/* <Input data = {data} windowSize = {windowSize} commoninputSize = {maxInput} maxRow = {maxRow} /> */}
     </div>
   );
